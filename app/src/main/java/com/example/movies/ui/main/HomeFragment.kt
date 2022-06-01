@@ -15,7 +15,7 @@ import com.example.movies.ui.search.MovieListAdapter
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentMainBinding
+   /* lateinit var binding: FragmentMainBinding
     lateinit var adapter: MovieListAdapter
 
     companion object {
@@ -42,6 +42,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-    }
+    }*/
 
 }

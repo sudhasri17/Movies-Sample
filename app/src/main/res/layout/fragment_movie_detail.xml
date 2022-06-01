@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2018 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.movies.database.tables.MovieDetail"/>
+        <variable
+            name="viewModel"
+            type="com.example.movies.ui.movieDetail.MovieDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true"
+        tools:ignore="MergeRootFrame">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/Toolbar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:id="@+id/movie_detail_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:clipToPadding="false"
+            tools:visibility="gone"
+            app:isGone="@{viewModel.errorView || viewModel.loading}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/app_bar_height"
+                    android:fitsSystemWindows="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/movie_detail_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:gravity="center_horizontal"
+                    android:focusable="true"
+                    android:text="@{viewModel.movieDetail.title}"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detail_image"                    tools:text="Apple" />
+
+                <TextView
+                    android:id="@+id/genre_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:labelFor="@+id/genre"
+                    android:text="@string/genre"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/year_label"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_detail_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genre_label"
+                    android:gravity="start"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:id="@+id/genre"
+                    app:layout_constraintEnd_toStartOf="@+id/year"
+                    tools:text="wsbqihwdbiqhwbdihbdcidhbcidhbiqb"
+                    android:text="@{viewModel.movieDetail.genre}"
+                    />
+                <TextView
+                    android:id="@+id/year_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:labelFor="@+id/genre"
+                    android:text="@string/year"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_detail_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genre_label"
+                    android:gravity="start"
+                    android:id="@+id/year"
+                    tools:text="wsbqihwdbiqhwbdihb"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:text="@{viewModel.movieDetail.year}"
+                    />
+
+                <TextView
+                    android:id="@+id/language_label"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:labelFor="@+id/language"
+                    android:text="@string/language"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genre" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/language_label"
+                    android:gravity="start"
+                    android:id="@+id/language"
+                    app:layout_constraintEnd_toStartOf="@+id/rating"
+                    tools:text="wsbqihwdbiqhwbdihbdcqsxqsxqqsxqxqxqidhbcidhbiqb"
+                    android:text="@{viewModel.movieDetail.language}"
+                    />
+                <TextView
+                    android:id="@+id/rating_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:labelFor="@+id/genre"
+                    android:text="@string/rating"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/language_label"
+                    app:layout_constraintTop_toBottomOf="@+id/year" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rating_label"
+                    android:gravity="start"
+                    android:id="@+id/rating"
+                    tools:text="wsbqihwdbiqhwbdihb"
+                    android:layout_margin="@dimen/margin_extra_small"
+                    android:text="@{viewModel.movieDetail.imdbRating}"
+                    />
+
+
+                <TextView
+                    android:id="@+id/plot"
+                    style="?android:attr/textAppearanceMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:textIsSelectable="true"
+                    android:minHeight="@dimen/description_min_height"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/language"
+                    android:text="@{viewModel.movieDetail.plot}"
+                    tools:text="Details about the plant" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:animateLayoutChanges="true"
+            app:isGone="@{!viewModel.errorView}"
+            tools:visibility="gone"
+            android:id="@+id/error_view">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textAppearance="?attr/textAppearanceHeadline4"
+                android:text="@string/generic_error"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:isGone="@{!viewModel.loading}"
+            android:animateLayoutChanges="true"
+            android:id="@+id/loading_view">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressbar"
+                android:gravity="center"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+
+</layout>

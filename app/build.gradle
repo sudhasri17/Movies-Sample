@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -13,6 +14,8 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "API_KEY", "\"" + getApiKey() + "\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,6 +52,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     kapt "com.android.databinding:compiler:3.5.0"
 
+    //naviagtion
+    implementation 'androidx.navigation:navigation-fragment:2.4.2'
+    implementation "androidx.navigation:navigation-ui-ktx:2.4.2"
+
     //dagger
     def dagger_version = '2.39.1'
     implementation "com.google.dagger:dagger:${dagger_version}"
@@ -65,6 +72,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+
 
     //DB flow
     def dbflow_version = '3.1.1'
@@ -74,9 +83,13 @@ dependencies {
     kapt "com.github.agrosner.DBFlow:dbflow-processor:${dbflow_version}"
 
     //sandwich
-    implementation "com.github.skydoves:sandwich:1.2.4"
+    implementation "com.github.skydoves:sandwich:1.2.5"
 
     //fresco
     implementation 'com.facebook.fresco:fresco:2.6.0'
 
+}
+
+def getApiKey() {
+    return project.findProperty("apikey")
 }

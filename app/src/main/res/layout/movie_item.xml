@@ -2,22 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <!--<data>
+    <data>
         <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener"/>
-        <variable
-            name="viewModel"
-            type="com.google.samples.apps"/>
-    </data>-->
+            name="data"
+            type="com.example.movies.database.tables.MovieTileTable"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/list_item_image_height"
+            android:layout_height="@dimen/list_item_image_height"
             android:layout_marginTop="8dp"
             android:scaleType="fitCenter"
             android:id="@+id/movie_poster"
@@ -28,21 +25,21 @@
 
         <TextView
             android:id="@+id/movie_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/fav_icon"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/fav_icon"
             app:layout_constraintTop_toBottomOf="@+id/movie_poster"
-            tools:text="sdhfvakhjsdfkahjsdbashdbdfsdffsfsd" />
+            android:text="@{data.title}" />
 
         <TextView
             android:id="@+id/movie_year"
@@ -54,10 +51,9 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/fav_icon"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toLeftOf="@+id/movie_name"
-            app:layout_constraintRight_toLeftOf="@+id/fav_icon"
+            app:layout_constraintStart_toStartOf="@id/movie_name"
             app:layout_constraintTop_toBottomOf="@+id/movie_name"
-            tools:text="sdhfvakhjsdfkahjsdbashdbabsdhc" />
+            android:text="@{data.year}" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:layout_width="wrap_content"
